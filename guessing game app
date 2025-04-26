@@ -1,0 +1,63 @@
+package guessingGame;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class GuessNumberApp {
+	
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		Game game = new Game();
+		char playAgain = 'y';
+		
+		game.displayWelcomeMessage();
+		
+		while (playAgain == 'y') {
+			
+			game.generateNumberToBeGuessed();
+			
+			game.displayPleaseGuessMessage();
+			
+			while (true) {
+				System.out.print("Enter a number between 1 and 100: ");
+				int userGuess = -1;
+				
+				try {
+					userGuess = scanner.nextInt();
+					scanner.nextLine();	
+					
+					if (userGuess < 1 || userGuess > 100) {
+						System.out.println("Invalid Input. Please enter number **between**");
+						System.out.println();
+						continue;
+					}
+					
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid.  Please enter whole numbers.");
+					scanner.nextLine();
+					System.out.println();
+					continue;
+				}
+			
+			game.makeGuess(userGuess);
+			
+			if (game.isCorrectGuess()) {
+				game.displayCorrectGuessMessage();
+				break;
+			} else {
+				game.displayGuessAgainMessage();
+			}
+
+		
+			System.out.print("Try again? (y/n): ");
+			String response = scanner.next().toLowerCase();
+			scanner.nextLine();
+			playAgain = response.charAt(0);
+			System.out.println();
+		}
+	
+			System.out.println("Thanks for playing!");
+			scanner.close();
+		}
+	}
+}

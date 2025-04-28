@@ -1,0 +1,41 @@
+import java.util.Scanner;
+
+public class GuessNumberApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String playAgain = "y";
+
+        Game game = new Game();
+        System.out.println("Welcome to the Guess the Number Game");
+        System.out.println("++++++++++++++++++++++++++++++++++++");
+
+        while (playAgain.equalsIgnoreCase("y")) {
+            game.generateNumberToBeGuessed();
+            game.counter = 0; 
+            boolean guessedCorrectly = false;
+
+            game.displayPleaseGuessMessage();
+
+            while (!guessedCorrectly) {
+                int userGuess = scanner.nextInt();
+                scanner.nextLine(); 
+                System.out.print(userGuess + "\n"); 
+
+                game.makeGuess(userGuess);
+                guessedCorrectly = game.isCorrectGuess();
+
+                if (guessedCorrectly) {
+                    game.displayCorrectGuessMessage();
+                } else {
+                    game.displayGuessAgainMessage();
+                }
+            }
+
+            System.out.print("Try again? (y/n): ");
+            playAgain = scanner.nextLine();
+        }
+
+        System.out.println("Bye - Come back soon!");
+        scanner.close();
+    }
+}

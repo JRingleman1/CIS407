@@ -12,7 +12,7 @@ public class Game {
     public Game() {
         this.gameDate = new Date();
         this.counter = 0;
-        this.previousGuess = -1; // Initialize with a value that won't match any guess
+        this.previousGuess = -1;
     }
 
     public void generateNumberToBeGuessed() {

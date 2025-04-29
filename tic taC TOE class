@@ -1,0 +1,106 @@
+public class TicTacToe {
+    private char[][] board;
+    private int rowNumber;
+    private int columnNumber;
+    private char markSelected;
+
+    public TicTacToe() {
+        board = new char[3][3];
+        initializeBoard();
+    }
+
+    private void initializeBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = ' ';
+            }
+        }
+    }
+
+    public void displayWelcomeMessage() {
+        System.out.println("Welcome to Tic Tac Toe!");
+    }
+
+    public void displayGrid() {
+        System.out.println("-------------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j] + " | ");
+            }
+            System.out.println();
+            System.out.println("-------------");
+        }
+    }
+
+    public boolean startGame() {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        char currentPlayer = 'X';
+        int moves = 0;
+
+        while (moves < 9) {
+            markSelected = currentPlayer;
+            takeTurn(scanner);
+            displayGrid();
+            if (checkForWinner()) {
+                System.out.println(currentPlayer + " wins!");
+                scanner.close();
+                return true;
+            }
+            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            moves++;
+        }
+
+        System.out.println("It's a draw!");
+        scanner.close();
+        return false;
+    }
+
+    public void takeTurn(java.util.Scanner scanner) {
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.println(markSelected + "'s turn");
+            System.out.print("Pick a row (1, 2, 3): ");
+            rowNumber = scanner.nextInt() - 1;
+            System.out.print("Pick a column (1, 2, 3): ");
+            columnNumber = scanner.nextInt() - 1;
+
+            if (rowNumber >= 0 && rowNumber < 3 && columnNumber >= 0 && columnNumber < 3) {
+                if (board[rowNumber][columnNumber] == ' ') {
+                    board[rowNumber][columnNumber] = markSelected;
+                    validInput = true;
+                } else {
+                    System.out.println("That cell is already occupied. Please try again.");
+                }
+            } else {
+                System.out.println("Invalid row or column number. Please enter a number between 1 and 3.");
+            }
+        }
+    }
+
+    public boolean checkForWinner() {
+        // Check rows
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == markSelected && board[i][1] == markSelected && board[i][2] == markSelected) {
+                return true;
+            }
+        }
+
+        // Check columns
+        for (int j = 0; j < 3; j++) {
+            if (board[0][j] == markSelected && board[1][j] == markSelected && board[2][j] == markSelected) {
+                return true;
+            }
+        }
+
+        // Check diagonals
+        if (board[0][0] == markSelected && board[1][1] == markSelected && board[2][2] == markSelected) {
+            return true;
+        }
+        if (board[0][2] == markSelected && board[1][1] == markSelected && board[2][0] == markSelected) {
+            return true;
+        }
+
+        return false;
+    }
+}

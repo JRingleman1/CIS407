@@ -4,7 +4,7 @@ public class BankAcctApp {
         System.out.println("\n--- Please enter the customer information ---");
         Customer customer1 = createNewCustomer();
 
-        System.out.println("\n--- PLease enter the customer information ---");
+        System.out.println("\n--- Please enter the customer information ---");
         Customer customer2 = createNewCustomer();
 
         System.out.println("\n--- Customer Information ---");

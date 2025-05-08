@@ -1,0 +1,7 @@
+public class BankAcctApp {
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Bank Account Application!");
+
+        // You will add more functionality here in later steps.
+    }
+}

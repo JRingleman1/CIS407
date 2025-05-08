@@ -1,7 +1,37 @@
 public class BankAcctApp {
     public static void main(String[] args) {
         System.out.println("Welcome to the Bank Account Application!");
+        System.out.println("\n--- Adding Customer 1 ---");
+        Customer customer1 = createNewCustomer();
 
-        // You will add more functionality here in later steps.
+        System.out.println("\n--- Adding Customer 2 ---");
+        Customer customer2 = createNewCustomer();
+
+        System.out.println("\n--- Customer Information ---");
+        displayCustomerInfo("Customer 1", customer1);
+        System.out.println();
+        displayCustomerInfo("Customer 2", customer2);
+    }
+
+    public static Customer createNewCustomer() {
+        String customerID = DataEntry.getStringInput("Enter Customer ID (max 5 chars): ");
+        String customerSSN = DataEntry.getNumericStringInput(9);
+        String customerLastName = DataEntry.getStringInput(20, "Enter Last Name: ");
+        String customerFirstName = DataEntry.getStringInput(15, "Enter First Name: ");
+        String customerStreet = DataEntry.getStringInput(20, "Enter Street: ");
+        String customerCity = DataEntry.getStringInput(20, "Enter City: ");
+        String customerState = DataEntry.getStringInput(2, "Enter State (2 chars): ");
+        String customerZip = DataEntry.getNumericStringInput(5);
+        String customerPhone = DataEntry.getNumericStringInput(10);
+
+        return new Customer(customerID, customerSSN, customerLastName, customerFirstName,
+                               customerStreet, customerCity, customerState, customerZip, customerPhone);
+    }
+
+    public static void displayCustomerInfo(String heading, Customer customer) {
+        System.out.println("=".repeat(30));
+        System.out.println("        " + heading);
+        System.out.println("=".repeat(30));
+        System.out.println(customer.toString());
     }
 }

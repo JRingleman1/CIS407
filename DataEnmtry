@@ -1,0 +1,102 @@
+import java.util.Scanner;
+
+public class DataEntry {
+
+    private static Scanner scanner = new Scanner(System.in);
+
+    // a. Entry of string data with no limit
+    public static String getStringInput() {
+        System.out.print("Enter string: ");
+        return scanner.nextLine();
+    }
+
+    // b. Entry of string data but with a length limit
+    public static String getStringInput(int maxLength) {
+        String input;
+        do {
+            System.out.print("Enter string (max " + maxLength + " characters): ");
+            input = scanner.nextLine();
+            if (input.length() > maxLength) {
+                System.out.println("Input exceeds the maximum length.");
+            }
+        } while (input.length() > maxLength);
+        return input;
+    }
+
+    // c. Entry of string data that must only have numeric values.
+    public static String getNumericStringInput(int length) {
+        String input;
+        do {
+            System.out.print("Enter numeric string of length " + length + ": ");
+            input = scanner.nextLine();
+            if (!input.matches("\\d+") || input.length() != length) {
+                System.out.println("Invalid input. Please enter " + length + " numeric characters.");
+            }
+        } while (!input.matches("\\d+") || input.length() != length);
+        return input;
+    }
+
+    // d. Entry of integer data
+    public static int getIntegerInput() {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter an integer.");
+            scanner.next(); // consume the invalid input
+        }
+        int input = scanner.nextInt();
+        scanner.nextLine(); // consume the newline character
+        return input;
+    }
+
+    // e. Entry of integer data with a range limit
+    public static int getIntegerInput(int min, int max) {
+        int input;
+        do {
+            System.out.print("Enter integer between " + min + " and " + max + ": ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter an integer.");
+                scanner.next();
+            }
+            input = scanner.nextInt();
+            scanner.nextLine();
+            if (input < min || input > max) {
+                System.out.println("Input is out of the valid range.");
+            }
+        } while (input < min || input > max);
+        return input;
+    }
+
+    // f. Entry of decimal data
+    public static double getDecimalInput() {
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Invalid input. Please enter a decimal number.");
+            scanner.next();
+        }
+        double input = scanner.nextDouble();
+        scanner.nextLine();
+        return input;
+    }
+
+    // g. Entry of decimal data with a range limit
+    public static double getDecimalInput(double min, double max) {
+        double input;
+        do {
+            System.out.print("Enter decimal number between " + min + " and " + max + ": ");
+            while (!scanner.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a decimal number.");
+                scanner.next();
+            }
+            input = scanner.nextDouble();
+            scanner.nextLine();
+            if (input < min || input > max) {
+                System.out.println("Input is out of the valid range.");
+            }
+        } while (input < min || input > max);
+        return input;
+    }
+
+    // h. Entry of a date (for now, as a String)
+    public static String getDateInput() {
+        System.out.print("Enter date (YYYY-MM-DD): ");
+        return scanner.nextLine();
+    }
+}

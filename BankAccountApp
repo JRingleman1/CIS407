@@ -1,10 +1,10 @@
 public class BankAcctApp {
     public static void main(String[] args) {
         System.out.println("Welcome to the Bank Account Application!");
-        System.out.println("\n--- Adding Customer 1 ---");
+        System.out.println("\n--- Please enter the customer information ---");
         Customer customer1 = createNewCustomer();
 
-        System.out.println("\n--- Adding Customer 2 ---");
+        System.out.println("\n--- PLease enter the customer information ---");
         Customer customer2 = createNewCustomer();
 
         System.out.println("\n--- Customer Information ---");
@@ -15,14 +15,14 @@ public class BankAcctApp {
 
     public static Customer createNewCustomer() {
         String customerID = DataEntry.getStringInput("Enter Customer ID (max 5 chars): ");
-        String customerSSN = DataEntry.getNumericStringInput(9);
+        String customerSSN = DataEntry.getNumericStringInput(9, "Enter SSN");
         String customerLastName = DataEntry.getStringInput(20, "Enter Last Name: ");
         String customerFirstName = DataEntry.getStringInput(15, "Enter First Name: ");
         String customerStreet = DataEntry.getStringInput(20, "Enter Street: ");
         String customerCity = DataEntry.getStringInput(20, "Enter City: ");
         String customerState = DataEntry.getStringInput(2, "Enter State (2 chars): ");
-        String customerZip = DataEntry.getNumericStringInput(5);
-        String customerPhone = DataEntry.getNumericStringInput(10);
+        String customerZip = DataEntry.getNumericStringInput(5, "Enter customer Zip code");
+        String customerPhone = DataEntry.getNumericStringInput(10, "Enter customer phone");
 
         return new Customer(customerID, customerSSN, customerLastName, customerFirstName,
                                customerStreet, customerCity, customerState, customerZip, customerPhone);

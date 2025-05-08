@@ -4,11 +4,13 @@ public class DataEntry {
 
     private static Scanner scanner = new Scanner(System.in);
 
+    
     public static String getStringInput(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine();
     }
 
+    
     public static String getStringInput(int maxLength, String prompt) {
         String input;
         do {
@@ -21,10 +23,19 @@ public class DataEntry {
         return input;
     }
 
+   
     public static String getNumericStringInput(int length) {
+        return getNumericStringInput(length, null);
+    }
+
+    public static String getNumericStringInput(int length, String prompt) {
         String input;
         do {
-            System.out.print("Enter numeric string of length " + length + ": ");
+            if (prompt != null && !prompt.isEmpty()) {
+                System.out.print(prompt + " (must be " + length + " numeric characters): ");
+            } else {
+                System.out.print("Enter numeric string of length " + length + ": ");
+            }
             input = scanner.nextLine();
             if (!input.matches("\\d+") || input.length() != length) {
                 System.out.println("Invalid input. Please enter " + length + " numeric characters.");
@@ -33,6 +44,7 @@ public class DataEntry {
         return input;
     }
 
+ 
     public static int getIntegerInput() {
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter an integer.");
@@ -43,6 +55,7 @@ public class DataEntry {
         return input;
     }
 
+   
     public static int getIntegerInput(int min, int max) {
         int input;
         do {
@@ -60,6 +73,7 @@ public class DataEntry {
         return input;
     }
 
+   
     public static double getDecimalInput() {
         while (!scanner.hasNextDouble()) {
             System.out.println("Invalid input. Please enter a decimal number.");
@@ -70,6 +84,7 @@ public class DataEntry {
         return input;
     }
 
+  
     public static double getDecimalInput(double min, double max) {
         double input;
         do {
@@ -87,7 +102,7 @@ public class DataEntry {
         return input;
     }
 
-
+    
     public static String getDateInput() {
         System.out.print("Enter date (YYYY-MM-DD): ");
         return scanner.nextLine();

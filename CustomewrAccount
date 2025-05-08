@@ -1,0 +1,144 @@
+public class Customer {
+    private String customerID;
+    private String customerSSN;
+    private String customerLastName;
+    private String customerFirstName;
+    private String customerStreet;
+    private String customerCity;
+    private String customerState;
+    private String customerZip;
+    private String customerPhone;
+
+    // Constructor (you can add more constructors as needed)
+    public Customer(String customerID, String customerSSN, String customerLastName, String customerFirstName,
+                    String customerStreet, String customerCity, String customerState, String customerZip, String customerPhone) {
+        this.customerID = customerID;
+        this.customerSSN = customerSSN;
+        this.customerLastName = customerLastName;
+        this.customerFirstName = customerFirstName;
+        this.customerStreet = customerStreet;
+        this.customerCity = customerCity;
+        this.customerState = customerState;
+        this.customerZip = customerZip;
+        this.customerPhone = customerPhone;
+    }
+
+    // Getter methods
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public String getCustomerSSN() {
+        return customerSSN;
+    }
+
+    public String getCustomerLastName() {
+        return customerLastName;
+    }
+
+    public String getCustomerFirstName() {
+        return customerFirstName;
+    }
+
+    public String getCustomerStreet() {
+        return customerStreet;
+    }
+
+    public String getCustomerCity() {
+        return customerCity;
+    }
+
+    public String getCustomerState() {
+        return customerState;
+    }
+
+    public String getCustomerZip() {
+        return customerZip;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    // Setter methods
+    public void setCustomerID(String customerID) {
+        if (customerID != null && customerID.length() <= 5 && !customerID.isEmpty()) {
+            this.customerID = customerID;
+        } else {
+            System.out.println("Invalid Customer ID. Must be max 5 characters and not blank.");
+        }
+    }
+
+    public void setCustomerSSN(String customerSSN) {
+        if (customerSSN != null && customerSSN.length() == 9 && customerSSN.matches("\\d+")) {
+            this.customerSSN = customerSSN;
+        } else {
+            System.out.println("Invalid Customer SSN. Must be 9 numeric characters and not blank.");
+        }
+    }
+
+    public void setCustomerLastName(String customerLastName) {
+        if (customerLastName != null && customerLastName.length() <= 20 && !customerLastName.isEmpty()) {
+            this.customerLastName = customerLastName;
+        } else {
+            System.out.println("Invalid Customer Last Name. Must be max 20 characters and not blank.");
+        }
+    }
+
+    public void setCustomerFirstName(String customerFirstName) {
+        if (customerFirstName != null && customerFirstName.length() <= 15 && !customerFirstName.isEmpty()) {
+            this.customerFirstName = customerFirstName;
+        } else {
+            System.out.println("Invalid Customer First Name. Must be max 15 characters and not blank.");
+        }
+    }
+
+    public void setCustomerStreet(String customerStreet) {
+        if (customerStreet != null && customerStreet.length() <= 20 && !customerStreet.isEmpty()) {
+            this.customerStreet = customerStreet;
+        } else {
+            System.out.println("Invalid Customer Street. Must be max 20 characters and not blank.");
+        }
+    }
+
+    public void setCustomerCity(String customerCity) {
+        if (customerCity != null && customerCity.length() <= 20 && !customerCity.isEmpty()) {
+            this.customerCity = customerCity;
+        } else {
+            System.out.println("Invalid Customer City. Must be max 20 characters and not blank.");
+        }
+    }
+
+    public void setCustomerState(String customerState) {
+        if (customerState != null && customerState.length() == 2 && !customerState.isEmpty()) {
+            this.customerState = customerState;
+        } else {
+            System.out.println("Invalid Customer State. Must be 2 characters and not blank.");
+        }
+    }
+
+    public void setCustomerZip(String customerZip) {
+        if (customerZip != null && customerZip.length() == 5 && customerZip.matches("\\d+")) {
+            this.customerZip = customerZip;
+        } else {
+            System.out.println("Invalid Customer Zip. Must be 5 numeric characters and not blank.");
+        }
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        if (customerPhone != null && customerPhone.length() == 10 && customerPhone.matches("\\d+")) {
+            this.customerPhone = customerPhone;
+        } else {
+            System.out.println("Invalid Customer Phone. Must be 10 numeric characters with no punctuation.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Customer ID: " + customerID +
+               "\nSSN: " + customerSSN +
+               "\nName: " + customerFirstName + " " + customerLastName +
+               "\nAddress: " + customerStreet + ", " + customerCity + ", " + customerState + " " + customerZip +
+               "\nPhone: " + customerPhone;
+    }
+}

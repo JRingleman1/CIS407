@@ -1,0 +1,33 @@
+public class CountriesListApp {
+    public static void main(String[] args) {
+        CountriesList countryListManager = new CountriesList();
+
+        countryListManager.displayWelcomeMessage();
+
+        int choice;
+        do {
+            countryListManager.displayMenu();
+            choice = countryListManager.getMenuOption();
+
+            switch (choice) {
+                case 1:
+                    countryListManager.listCountries();
+                    break;
+                case 2:
+                    System.out.print("Enter country: ");
+                    String newCountry = countryListManager.scanner.nextLine();
+                    countryListManager.addCountry(newCountry);
+                    break;
+                case 3:
+                    System.out.println("Goodbye.");
+                    break;
+                default:
+                    if (choice != -1) {
+                        System.out.println("Invalid menu option. Please try again.");
+                    }
+            }
+        } while (choice != 3);
+
+        countryListManager.closeScanner();
+    }
+}

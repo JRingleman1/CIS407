@@ -1,0 +1,66 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class CountriesList {
+    private ArrayList<String> countries;
+    private int menuOption;
+    private Scanner scanner;
+
+    public CountriesList() {
+        this.countries = new ArrayList<>();
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void displayWelcomeMessage() {
+        System.out.println("Country List Manager");
+    }
+
+    public void displayMenu() {
+        System.out.println("COMMAND MENU");
+        System.out.println("1 - List countries");
+        System.out.println("2 - Add a country");
+        System.out.println("3 - Exit");
+        System.out.print("Enter menu number: ");
+    }
+
+    public int getMenuOption() {
+        if (scanner.hasNextInt()) {
+            this.menuOption = scanner.nextInt();
+            scanner.nextLine(); // Consume newline left-over
+        } else {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine(); // Consume invalid input
+            this.menuOption = -1; // Indicate invalid input
+        }
+        return this.menuOption;
+    }
+
+    public boolean checkForCountry(String countryName) {
+        return countries.contains(countryName);
+    }
+
+    public void addCountry(String countryName) {
+        if (checkForCountry(countryName)) {
+            System.out.println("Country " + countryName + " already exists in list");
+        } else {
+            countries.add(countryName);
+            System.out.println("Country " + countryName + " has been added to the list.");
+        }
+    }
+
+    public void listCountries() {
+        if (countries.isEmpty()) {
+            System.out.println("No countries in the list.");
+        } else {
+            Collections.sort(countries);
+            for (String country : countries) {
+                System.out.println(country);
+            }
+        }
+    }
+
+    public void closeScanner() {
+        scanner.close();
+    }
+}

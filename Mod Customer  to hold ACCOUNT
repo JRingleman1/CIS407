@@ -1,0 +1,60 @@
+public class Customer {
+    private String customerID;
+    private String customerSSN;
+    private String customerLastName;
+    private String customerFirstName;
+    private String customerStreet;
+    private String customerCity;
+    private String customerState;
+    private String customerZip;
+    private String customerPhone;
+    private Account account; // Add an Account instance variable
+
+    // Constructor
+    public Customer(String customerID, String customerSSN, String customerLastName, String customerFirstName,
+                    String customerStreet, String customerCity, String customerState, String customerZip, String customerPhone) {
+        this.customerID = customerID;
+        this.customerSSN = customerSSN;
+        this.customerLastName = customerLastName;
+        this.customerFirstName = customerFirstName;
+        this.customerStreet = customerStreet;
+        this.customerCity = customerCity;
+        this.customerState = customerState;
+        this.customerZip = customerZip;
+        this.customerPhone = customerPhone;
+        this.account = null; // Initially no account
+    }
+
+    // Getter methods (all existing ones remain the same)
+    public String getCustomerID() { return customerID; }
+    public String getCustomerSSN() { return customerSSN; }
+    public String getCustomerLastName() { return customerLastName; }
+    public String getCustomerFirstName() { return customerFirstName; }
+    public String getCustomerStreet() { return customerStreet; }
+    public String getCustomerCity() { return customerCity; }
+    public String getCustomerState() { return customerState; }
+    public String getCustomerZip() { return customerZip; }
+    public String getCustomerPhone() { return customerPhone; }
+    public Account getAccount() { return account; }
+
+    // Setter methods (all existing ones remain the same, but we'll adjust the validation within BankAcctApp)
+    public void setCustomerID(String customerID) { this.customerID = customerID; }
+    public void setCustomerSSN(String customerSSN) { this.customerSSN = customerSSN; }
+    public void setCustomerLastName(String customerLastName) { this.customerLastName = customerLastName; }
+    public void setCustomerFirstName(String customerFirstName) { this.customerFirstName = customerFirstName; }
+    public void setCustomerStreet(String customerStreet) { this.customerStreet = customerStreet; }
+    public void setCustomerCity(String customerCity) { this.customerCity = customerCity; }
+    public void setCustomerState(String customerState) { this.customerState = customerState; }
+    public void setCustomerZip(String customerZip) { this.customerZip = customerZip; }
+    public void setCustomerPhone(String customerPhone) { this.customerPhone = customerPhone; }
+    public void setAccount(Account account) { this.account = account; }
+
+    @Override
+    public String toString() {
+        return "Customer ID: " + customerID +
+               "\nSSN: " + customerSSN +
+               "\nName: " + customerFirstName + " " + customerLastName +
+               "\nAddress: " + customerStreet + ", " + customerCity + ", " + customerState + " " + customerZip +
+               "\nPhone: " + customerPhone;
+    }
+}

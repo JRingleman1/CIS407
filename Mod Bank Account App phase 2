@@ -1,0 +1,141 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class BankAcctApp {
+    private static List<Customer> customers = new ArrayList<>();
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Bank Account Application!");
+
+        System.out.println("\n--- Adding Customer 1 ---");
+        Customer customer1 = createNewCustomer();
+        if (customer1 != null) {
+            Account account1 = createNewAccount();
+            customer1.setAccount(account1);
+            customers.add(customer1);
+        }
+
+        System.out.println("\n--- Adding Customer 2 ---");
+        Customer customer2 = createNewCustomer();
+        if (customer2 != null) {
+            Account account2 = createNewAccount();
+            customer2.setAccount(account2);
+            customers.add(customer2);
+        }
+
+        System.out.println("\n--- Customer and Account Information ---");
+        for (Customer customer : customers) {
+            displayCustomerInfo(customer);
+            System.out.println();
+        }
+    }
+
+    public static Customer createNewCustomer() {
+        String customerID = "";
+        String customerSSN = "";
+        String customerLastName = "";
+        String customerFirstName = "";
+        String customerStreet = "";
+        String customerCity = "";
+        String customerState = "";
+        String customerZip = "";
+        String customerPhone = "";
+        Customer newCustomer = null;
+        boolean valid = false;
+
+        System.out.println("-- Entering Customer Details --");
+
+        while (!valid) {
+            try {
+                customerID = DataEntry.getStringInput("Enter Customer ID (max 5 chars): ");
+                if (customerID.isEmpty() || customerID.length() > 5) throw new IllegalArgumentException("Invalid Customer ID. Must be max 5 characters and not blank.");
+
+                customerSSN = DataEntry.getNumericStringInput(9, "Enter SSN");
+                if (customerSSN.isEmpty() || customerSSN.length() != 9) throw new IllegalArgumentException("Invalid Customer SSN. Must be 9 numeric characters and not blank.");
+
+                customerLastName = DataEntry.getStringInput(20, "Enter Last Name: ");
+                if (customerLastName.isEmpty() || customerLastName.length() > 20) throw new IllegalArgumentException("Invalid Customer Last Name. Must be max 20 characters and not blank.");
+
+                customerFirstName = DataEntry.getStringInput(15, "Enter First Name: ");
+                if (customerFirstName.isEmpty() || customerFirstName.length() > 15) throw new IllegalArgumentException("Invalid Customer First Name. Must be max 15 characters and not blank.");
+
+                customerStreet = DataEntry.getStringInput(20, "Enter Street: ");
+                if (customerStreet.isEmpty() || customerStreet.length() > 20) throw new IllegalArgumentException("Invalid Customer Street. Must be max 20 characters and not blank.");
+
+                customerCity = DataEntry.getStringInput(20, "Enter City: ");
+                if (customerCity.isEmpty() || customerCity.length() > 20) throw new IllegalArgumentException("Invalid Customer City. Must be max 20 characters and not blank.");
+
+                customerState = DataEntry.getStringInput(2, "Enter State (2 chars): ");
+                if (customerState.isEmpty() || customerState.length() != 2) throw new IllegalArgumentException("Invalid Customer State. Must be 2 characters and not blank.");
+
+                customerZip = DataEntry.getNumericStringInput(5, "Enter customer Zip code");
+                if (customerZip.isEmpty() || customerZip.length() != 5) throw new IllegalArgumentException("Invalid Customer Zip. Must be 5 numeric characters and not blank.");
+
+                customerPhone = DataEntry.getNumericStringInput(10, "Enter customer phone");
+                if (customerPhone.isEmpty() || customerPhone.length() != 10) throw new IllegalArgumentException("Invalid Customer Phone. Must be 10 numeric characters with no punctuation.");
+
+                newCustomer = new Customer(customerID, customerSSN, customerLastName, customerFirstName,
+                                            customerStreet, customerCity, customerState, customerZip, customerPhone);
+                valid = true;
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage() + " Please re-enter.");
+            }
+        }
+        return newCustomer;
+    }
+
+    public static Account createNewAccount() {
+        String accountNumber = "";
+        String accountType = "";
+        double serviceFee = 0.0;
+        double interestRate = 0.0;
+        double overdraftFee = 0.0;
+        Account newAccount = null;
+        boolean valid = false;
+
+        System.out.println("-- Entering Account Details --");
+
+        while (!valid) {
+            try {
+                accountNumber = DataEntry.getStringInput("Enter Account Number (max 5 chars): ");
+                if (accountNumber.length() > 5) throw new IllegalArgumentException("Invalid Account Number. Must be max 5 characters.");
+
+                accountType = DataEntry.getStringInput("Enter Account Type (CHK or SAV): ").toUpperCase();
+                if (!accountType.equals("CHK") && !accountType.equals("SAV")) throw new IllegalArgumentException("Invalid Account Type. Must be 'CHK' or 'SAV'.");
+
+                serviceFee = DataEntry.getDecimalInput("Enter Service Fee (0.00 - 10.00): ");
+                if (serviceFee < 0 || serviceFee > 10.00) throw new IllegalArgumentException("Invalid Service Fee. Must be between 0.00 and 10.00 inclusive.");
+
+                interestRate = DataEntry.getDecimalInput("Enter Interest Rate (0 - 10): ");
+                if (interestRate < 0 || interestRate > 10.00) throw new IllegalArgumentException("Invalid Interest Rate. Must be between 0 and 10 inclusive.");
+
+                overdraftFee = DataEntry.getDecimalInput("Enter Overdraft Fee: ");
+
+                newAccount = new Account(accountNumber, accountType);
+                newAccount.setServiceFee(serviceFee);
+                newAccount.setInterestRate(interestRate);
+                newAccount.setOverdraftFee(overdraftFee);
+
+                valid = true;
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage() + " Please re-enter.");
+            }
+        }
+        return newAccount;
+    }
+
+    public static void displayCustomerInfo(Customer customer) {
+        System.out.println("=".repeat(40));
+        System.out.println("          Customer Information");
+        System.out.println("=".repeat(40));
+        System.out.println(customer.toString());
+        if (customer.getAccount() != null) {
+            System.out.println("\n" + "=".repeat(40));
+            System.out.println("           Account Information");
+            System.out.println("=".repeat(40));
+            System.out.println(customer.getAccount().toString());
+        }
+    }
+}

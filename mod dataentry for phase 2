@@ -24,6 +24,7 @@ public class DataEntry {
     }
 
     // c. Entry of string data that must only have numeric values.
+    // Overloaded to provide a default prompt if none is given.
     public static String getNumericStringInput(int length) {
         return getNumericStringInput(length, null);
     }
@@ -101,4 +102,19 @@ public class DataEntry {
                 if (input >= min && input <= max) {
                     break;
                 } else {
-                    System.out.println("
+                    System.out.println("Input is out of the valid range.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a decimal number.");
+                scanner.next(); // consume invalid input
+            }
+        }
+        return input;
+    }
+
+    // h. Entry of a date (for now, as a String)
+    public static String getDateInput() {
+        System.out.print("Enter date (YYYY-MM-DD): ");
+        return scanner.nextLine();
+    }
+}

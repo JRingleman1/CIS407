@@ -1,0 +1,97 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class StackCalculatorApp {
+
+    public static void main(String[] args) {
+        // a. Make an instance of the StackCalculator class
+        StackCalculator calculator = new StackCalculator();
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+        boolean running = true;
+
+        // b. Display a welcome message.
+        calculator.displayWelcomeMessage();
+
+        // c. Display the list of commands
+        calculator.displayCommands();
+
+        while (running) {
+            System.out.print("stack> ");
+            userInput = scanner.nextLine().trim();
+            String[] parts = userInput.split(" ", 2); // Split into command and argument (if any)
+            String command = parts[0].toLowerCase();
+
+            try {
+                switch (command) {
+                    case "push":
+                        if (parts.length > 1) {
+                            try {
+                                double value = Double.parseDouble(parts[1]);
+                                calculator.push(value);
+                                calculator.listStack(); // Show stack after push, matching sample
+                            } catch (NumberFormatException e) {
+                                System.out.println("Unrecognized command."); // Or more specific error
+                            }
+                        } else {
+                            System.out.println("Unrecognized command."); // Missing number for push
+                        }
+                        break;
+                    case "add":
+                        if (calculator.size() < 2) {
+                             System.out.println("Unrecognized command."); // Match sample for 'add' with insufficient elements
+                        } else {
+                            calculator.add();
+                            calculator.listStack();
+                        }
+                        break;
+                    case "sub":
+                        if (calculator.size() < 2) {
+                            System.out.println("Unrecognized command."); // Match sample
+                        } else {
+                            calculator.sub();
+                            calculator.listStack();
+                        }
+                        break;
+                    case "mult":
+                        if (calculator.size() < 2) {
+                            System.out.println("Unrecognized command."); // Match sample
+                        } else {
+                            calculator.mult();
+                            calculator.listStack();
+                        }
+                        break;
+                    case "div":
+                        if (calculator.size() < 2) {
+                            System.out.println("Unrecognized command."); // Match sample
+                        } else {
+                            calculator.div();
+                            calculator.listStack();
+                        }
+                        break;
+                    case "clear":
+                        calculator.clearStack();
+                        calculator.listStack(); // Should print "empty"
+                        break;
+                    case "list":
+                        calculator.listStack();
+                        break;
+                    case "quit":
+                        running = false;
+                        System.out.println("Exiting application.");
+                        break;
+                    default:
+                        System.out.println("Unrecognized command.");
+                        break;
+                }
+            } catch (IllegalStateException | ArithmeticException e) {
+                // Catch exceptions thrown by calculator operations
+                System.out.println("Error: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
+            }
+        }
+
+        scanner.close();
+    }
+}

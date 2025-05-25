@@ -1,0 +1,63 @@
+import java.util.Stack;
+
+public class StackCalculator {
+    private Stack<Double> calculator;
+    private String command;
+
+    public StackCalculator() {
+        calculator = new Stack<>();
+    }
+
+    public void displayWelcomeMessage() {
+        System.out.println("Welcome to the Stack Calculator.");
+    }
+
+    public void displayCommands() {
+        System.out.println("Commands: push n, add, sub, mult, div, list, clear, or quit.");
+    }
+
+    public void push(double value) {
+        calculator.push(value);
+        listStack();
+    }
+
+    public Double pop() {
+        if (!calculator.isEmpty()) {
+            return calculator.pop();
+        } else {
+            System.out.println("Stack is empty.");
+            return null;
+        }
+    }
+
+    public int size() {
+        return calculator.size();
+    }
+
+    public Stack<Double> getValues() {
+        return (Stack<Double>) calculator.clone();
+    }
+
+    public void listStack() {
+        if (calculator.isEmpty()) {
+            System.out.println("empty");
+        } else {
+            for (Double val : calculator) {
+                System.out.println(val);
+            }
+        }
+    }
+
+    public void clearStack() {
+        calculator.clear();
+        System.out.println("Stack cleared.");
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
+    }
+}

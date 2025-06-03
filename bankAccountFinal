@@ -1,0 +1,57 @@
+import java.util.Scanner;
+import java.text.ParseException;
+
+public class BankAcctApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        CheckingAccount checking = new CheckingAccount(0);
+        SavingsAccount savings = new SavingsAccount(0);
+
+        try {
+            System.out.println("Enter Checking Account transaction date (MM/dd/yyyy):");
+            checking.setTransactionDate(scanner.nextLine());
+
+            System.out.println("Enter Checking Account transaction type (DEP/WTH):");
+            checking.setTransactionType(scanner.nextLine());
+
+            System.out.println("Enter Checking Account transaction amount:");
+            checking.setTransactionAmount(scanner.nextDouble());
+            scanner.nextLine(); 
+
+            System.out.println("Enter Savings Account transaction date (MM/dd/yyyy):");
+            savings.setTransactionDate(scanner.nextLine());
+
+            System.out.println("Enter Savings Account transaction type (DEP/WTH):");
+            savings.setTransactionType(scanner.nextLine());
+
+            System.out.println("Enter Savings Account transaction amount:");
+            savings.setTransactionAmount(scanner.nextDouble());
+
+        } catch (ParseException | IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+            return;
+        }
+
+        // Test Transactions
+        checking.deposit(1000);
+        checking.withdrawal(500);
+        checking.withdrawal(501);
+        checking.deposit(500);
+        checking.addInterest();
+
+        savings.deposit(1000);
+        savings.withdrawal(500);
+        savings.withdrawal(501);
+        savings.deposit(500);
+        savings.addInterest();
+
+        // Output Results
+        System.out.println("\n--- Checking Account Transactions ---");
+        System.out.printf("Balance: $%.2f\n", checking.balance());
+
+        System.out.println("\n--- Savings Account Transactions ---");
+        System.out.printf("Balance: $%.2f\n", savings.balance());
+
+        scanner.close();
+    }
+}

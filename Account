@@ -1,0 +1,40 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+public abstract class Account implements AccountInterface {
+    protected String transactionDate;
+    protected String transactionType;
+    protected double transactionAmount;
+    protected double balance;
+
+    public Account(double balance) {
+        this.balance = balance;
+    }
+
+    public void setTransactionDate(String date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        sdf.setLenient(false);
+        sdf.parse(date);
+        this.transactionDate = date;
+    }
+
+    public void setTransactionType(String type) throws IllegalArgumentException {
+        if (!type.equalsIgnoreCase("DEP") && !type.equalsIgnoreCase("WTH")) {
+            throw new IllegalArgumentException("Invalid Transaction Type: Must be 'DEP' or 'WTH'.");
+        }
+        this.transactionType = type;
+    }
+
+    public void setTransactionAmount(double amount) throws IllegalArgumentException {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Invalid Transaction Amount: Must be greater than zero.");
+        }
+        this.transactionAmount = amount;
+    }
+
+    public abstract void withdrawal(double amount);
+    public abstract void deposit(double amount);
+    public double balance() {
+        return balance;
+    }
+}

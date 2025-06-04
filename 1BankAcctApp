@@ -1,0 +1,84 @@
+import java.util.Scanner;
+
+public class BankAcctApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Create Checking Account
+        CheckingAccount checking = null;
+        while (checking == null) {
+            try {
+                System.out.print("Enter Customer ID for Checking: ");
+                String id = scanner.nextLine();
+
+                System.out.print("Enter Account Number for Checking: ");
+                String accNum = scanner.nextLine();
+
+                System.out.print("Enter Initial Balance for Checking: ");
+                double balance = Double.parseDouble(scanner.nextLine());
+
+                if (balance < 0) throw new IllegalArgumentException("Balance must be non-negative.");
+
+                checking = new CheckingAccount(id, accNum, balance);
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
+
+        // Create Savings Account
+        SavingsAccount savings = null;
+        while (savings == null) {
+            try {
+                System.out.print("Enter Customer ID for Savings: ");
+                String id = scanner.nextLine();
+
+                System.out.print("Enter Account Number for Savings: ");
+                String accNum = scanner.nextLine();
+
+                System.out.print("Enter Initial Balance for Savings: ");
+                double balance = Double.parseDouble(scanner.nextLine());
+
+                if (balance < 0) throw new IllegalArgumentException("Balance must be non-negative.");
+
+                savings = new SavingsAccount(id, accNum, balance);
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
+
+        // Perform Transactions
+        System.out.println("\n--- Transaction Summary ---");
+
+        performTransaction(checking, "2025-06-04", "DEP", 1000);
+        performTransaction(checking, "2025-06-04", "WTH", 500);
+        performTransaction(checking, "2025-06-04", "WTH", 501);
+        performTransaction(checking, "2025-06-04", "DEP", 500);
+        checking.applyInterest();
+        printSummary(checking, "2025-06-04", "INT", 0);
+
+        performTransaction(savings, "2025-06-04", "DEP", 1000);
+        performTransaction(savings, "2025-06-04", "WTH", 500);
+        performTransaction(savings, "2025-06-04", "WTH", 501);
+        performTransaction(savings, "2025-06-04", "DEP", 500);
+        savings.applyInterest();
+        printSummary(savings, "2025-06-04", "INT", 0);
+    }
+
+    public static void performTransaction(Account account, String date, String type, double amount) {
+        if (type.equals("DEP")) {
+            account.deposit(amount);
+        } else if (type.equals("WTH")) {
+            account.withdrawal(amount);
+        }
+        printSummary(account, date, type, amount);
+    }
+
+    public static void printSummary(Account account, String date, String type, double amount) {
+        String accType = account instanceof CheckingAccount ? "Checking" : "Savings";
+        double fee = (account instanceof CheckingAccount) ? 0.50 : 0.25;
+        if (type.equals("INT")) fee = 0;
+
+        System.out.printf("%-12s | %-12s | %-8s | %-10s | %-4s | $%-8.2f | Fee: $%-4.2f | Balance: $%-8.2f\n",
+                account.customerId, account.accountNumber, accType, date, type, amount, fee, account.balance());
+    }
+}

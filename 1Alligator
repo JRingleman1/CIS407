@@ -1,0 +1,13 @@
+import javax.swing.JOptionPane;
+
+public class Alligator extends Animal implements Countable {
+    public Alligator() {
+        super();
+    }
+
+    @Override
+    public void incrementCount() {
+        this.count++;
+        JOptionPane.showMessageDialog(null, "Alligator count incremented to " + this.count);
+    }
+}

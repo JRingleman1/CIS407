@@ -1,0 +1,96 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AnimalCounterGUI {
+    private JFrame frame;
+    private JLabel welcomeLabel;
+    private JLabel alligatorCountLabel;
+    private JLabel sheepCountLabel;
+    private JButton addAlligatorButton;
+    private JButton addSheepButton;
+    private JButton displayCountsButton;
+    private JButton resetCountsButton;
+    private JRadioButton alligatorRadioButton;
+    private JRadioButton sheepRadioButton;
+    private JButton exitButton;
+    private Alligator alligator;
+    private Sheep sheep;
+
+    public AnimalCounterGUI() {
+        alligator = new Alligator();
+        sheep = new Sheep();
+        frame = new JFrame("Animal Counter");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLayout(new GridLayout(10, 1));
+
+        welcomeLabel = new JLabel("Welcome to the Best Animal Counter");
+        alligatorCountLabel = new JLabel("Alligator Count: " + alligator.getCount());
+        sheepCountLabel = new JLabel("Sheep Count: " + sheep.getCount());
+
+        addAlligatorButton = new JButton("Add Alligator");
+        addSheepButton = new JButton("Add Sheep");
+        displayCountsButton = new JButton("Display Counts");
+        resetCountsButton = new JButton("Reset Counts");
+        alligatorRadioButton = new JRadioButton("Alligator");
+        sheepRadioButton = new JRadioButton("Sheep");
+        exitButton = new JButton("Exit");
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(alligatorRadioButton);
+        group.add(sheepRadioButton);
+
+        frame.add(welcomeLabel);
+        frame.add(alligatorCountLabel);
+        frame.add(sheepCountLabel);
+        frame.add(addAlligatorButton);
+        frame.add(addSheepButton);
+        frame.add(displayCountsButton);
+        frame.add(resetCountsButton);
+        frame.add(alligatorRadioButton);
+        frame.add(sheepRadioButton);
+        frame.add(exitButton);
+
+        addAlligatorButton.addActionListener(new ButtonClickListener());
+        addSheepButton.addActionListener(new ButtonClickListener());
+        displayCountsButton.addActionListener(new ButtonClickListener());
+        resetCountsButton.addActionListener(new ButtonClickListener());
+        exitButton.addActionListener(new ButtonClickListener());
+
+        frame.setVisible(true);
+    }
+
+    private class ButtonClickListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == addAlligatorButton) {
+                alligator.incrementCount();
+                alligatorCountLabel.setText("Alligator Count: " + alligator.getCount());
+                if (alligator.getCount() > sheep.getCount()) {
+                    JOptionPane.showMessageDialog(frame, "Please add more sheep for the hungry alligators");
+                }
+            } else if (e.getSource() == addSheepButton) {
+                sheep.incrementCount();
+                sheepCountLabel.setText("Sheep Count: " + sheep.getCount());
+                if (alligator.getCount() == 0) {
+                    JOptionPane.showMessageDialog(frame, "No alligators now so the sheep are safe");
+                }
+            } else if (e.getSource() == displayCountsButton) {
+                JOptionPane.showMessageDialog(frame,
+                        "Alligator Count: " + alligator.getCount() + "\nSheep Count: " + sheep.getCount());
+            } else if (e.getSource() == resetCountsButton) {
+                if (alligatorRadioButton.isSelected()) {
+                    alligator.resetCount();
+                    alligatorCountLabel.setText("Alligator Count: " + alligator.getCount());
+                } else if (sheepRadioButton.isSelected()) {
+                    sheep.resetCount();
+                    sheepCountLabel.setText("Sheep Count: " + sheep.getCount());
+                }
+            } else if (e.getSource() == exitButton) {
+                System.exit(0);
+            }
+        }
+    }
+}

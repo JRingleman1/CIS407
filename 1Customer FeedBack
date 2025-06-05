@@ -1,0 +1,53 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class CustomerFeedbackForm {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Customer Feedback");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 250);
+        frame.setLayout(new FlowLayout());
+
+        JLabel promptLabel = new JLabel("Please leave your feedback:");
+        JTextField feedbackField = new JTextField(25);
+
+        JRadioButton goodRadio = new JRadioButton("Good");
+        JRadioButton badRadio = new JRadioButton("Bad");
+        ButtonGroup experienceGroup = new ButtonGroup();
+        experienceGroup.add(goodRadio);
+        experienceGroup.add(badRadio);
+
+        JCheckBox recommendCheck = new JCheckBox("Would recommend to others");
+
+        JButton submitButton = new JButton("Submit");
+        JLabel responseLabel = new JLabel("");
+
+        frame.add(promptLabel);
+        frame.add(feedbackField);
+        frame.add(goodRadio);
+        frame.add(badRadio);
+        frame.add(recommendCheck);
+        frame.add(submitButton);
+        frame.add(responseLabel);
+
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String feedback = feedbackField.getText();
+                String experience = goodRadio.isSelected() ? "Loved it!!" : badRadio.isSelected() ? "Despised it!!!" : "I AINT ANSWERIN'";
+                boolean recommend = recommendCheck.isSelected();
+
+                String message = "Feedback: " + feedback +
+                        "\nExperience: " + experience +
+                        "\nRecommend: " + (recommend ? "Yes" : "No");
+
+                JOptionPane.showMessageDialog(frame, message);
+                responseLabel.setText("Thank you for your feedback!");
+            }
+        });
+
+        frame.setVisible(true);
+    }
+}

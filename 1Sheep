@@ -1,0 +1,13 @@
+import javax.swing.JOptionPane;
+
+public class Sheep extends Animal implements Countable {
+    public Sheep() {
+        super();
+    }
+
+    @Override
+    public void incrementCount() {
+        this.count += 2;
+        JOptionPane.showMessageDialog(null, "Sheep count incremented to " + this.count);
+    }
+}
